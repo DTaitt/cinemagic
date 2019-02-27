@@ -9,4 +9,7 @@ describe('<App />', () => {
   it('renders <Header />', () => {
     expect(wrapper.exists('Header')).toBe(true)
   })
+  it('renders <Routes />', () => {
+    expect(wrapper.exists('Routes')).toBe(true)
+  })
 });
