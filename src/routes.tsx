@@ -2,7 +2,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import ListingPage from './views/ListingPage';
 import React from 'react'
-import Trending from './views/Trending';
+import Trending from './views/Trending/Trending';
 
 const Routes = () => {
     return(
