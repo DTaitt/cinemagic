@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
 
+import MediaCard from '../../components/MediaCard/MediaCard';
 import axios from 'axios'
+import { parseFilms } from '../../utils';
 
-interface Film {
+type Film = {
     id: string,
-    original_title: string,
+    title: string,
+    hero: string,
+    overview: string,
+    popularity: number,
+    poster: string,
+    releaseDate: string,
+    voteAverage: number,
+    voteCount: number,
 }
 
 type Props = {}
+
 type State = {
     films: Film[]
 }
@@ -18,18 +28,29 @@ class Trending extends Component<Props, State> {
         films: []
     }
 
-    componentDidMount = () => {
-        this.getTrending()
+    componentDidMount = async () => {
+        const films = await this.getTrending()
+        this.setState({ films })
     }
     
     getTrending = async () => {
         const { data: { results: films } } = await axios.get('https://api.themoviedb.org/3/trending/movie/week?api_key=6164a5e5332ccb064223fe441c57fea0')
-        this.setState({ films })
+        return parseFilms(films)
     }    
 
     render() {
       return (
-        this.state.films.map(film => <p key={film.id}>{film.original_title}</p>)
+        this.state.films.map(film => <MediaCard 
+            key={film.id}
+            title={film.title}
+            hero={film.hero}
+            overview={film.overview}
+            popularity={film.popularity}
+            poster={film.poster}
+            releaseDate={film.releaseDate}
+            voteAverage={film.voteAverage}
+            voteCount={film.voteCount}
+        />)
       )
     }
 
