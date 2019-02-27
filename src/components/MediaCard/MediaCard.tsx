@@ -1,4 +1,7 @@
 import React from 'react'
+import { URL_PREFIX } from '../../utils';
+import { Card as _Card } from 'react-bootstrap'
+import styled from 'styled-components'
 
 type Props = {
     title: string,
@@ -11,8 +14,14 @@ type Props = {
     voteCount: number,
 }
 
-const MediaCard = (props:Props) => {
-    return <div>Media Card</div>
-}
+const MediaCard = (props:Props) => (
+    <Card>
+        <Card.Img src={URL_PREFIX + props.poster} />
+    </Card>
+)
+
+const Card = styled(_Card)`
+    width: 300px;
+`
 
 export default MediaCard
