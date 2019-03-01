@@ -1,56 +1,45 @@
 import React, { Component } from 'react'
 
+import { Link } from 'react-router-dom'
 import MediaCard from '../../components/MediaCard/MediaCard';
+import { Show } from './../../types'
 import axios from 'axios'
-import { parseFilms } from '../../utils';
-
-type Film = {
-    id: string,
-    title: string,
-    hero: string,
-    overview: string,
-    popularity: number,
-    poster: string,
-    releaseDate: string,
-    voteAverage: number,
-    voteCount: number,
-}
+import { parseShows } from '../../utils';
 
 type Props = {}
 
 type State = {
-    films: Film[]
+    shows: Show[]
 }
 
 class Trending extends Component<Props, State> {
 
     state:State = {
-        films: []
+        shows: []
     }
 
     componentDidMount = async () => {
-        const films = await this.getTrending()
-        this.setState({ films })
+        const shows = await this.getTrending()
+        this.setState({ shows })
     }
     
     getTrending = async () => {
-        const { data: { results: films } } = await axios.get('https://api.themoviedb.org/3/trending/movie/week?api_key=6164a5e5332ccb064223fe441c57fea0')
-        return parseFilms(films)
+        const { data: { results: shows } } = await axios.get(`https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.REACT_APP_MOVIE_DB_API}`)
+        return parseShows(shows)
     }    
 
     render() {
       return (
-        this.state.films.map(film => <MediaCard 
-            key={film.id}
-            title={film.title}
-            hero={film.hero}
-            overview={film.overview}
-            popularity={film.popularity}
-            poster={film.poster}
-            releaseDate={film.releaseDate}
-            voteAverage={film.voteAverage}
-            voteCount={film.voteCount}
-        />)
+        this.state.shows.map(show => <Link key={show.id} to={`/tv/${show.name}-${show.id}`}><MediaCard 
+            name={show.name}
+            hero={show.hero}
+            overview={show.overview}
+            popularity={show.popularity}
+            poster={show.poster}
+            releaseDate={show.releaseDate}
+            voteAverage={show.voteAverage}
+            voteCount={show.voteCount}
+        /></Link>)
       )
     }
 
