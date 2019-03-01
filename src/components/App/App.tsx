@@ -16,6 +16,8 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  bottom: 56px;
 `
 
 export default App;

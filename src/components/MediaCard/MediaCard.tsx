@@ -4,7 +4,7 @@ import { Card as _Card } from 'react-bootstrap'
 import styled from 'styled-components'
 
 type Props = {
-    title: string,
+    name: string,
     hero: string,
     overview: string,
     popularity: number,
