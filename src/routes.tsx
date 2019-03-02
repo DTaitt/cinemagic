@@ -1,14 +1,16 @@
 import { Route, Switch } from 'react-router-dom'
 
-import DetailPage from './views/DetailPage';
 import React from 'react'
+import Season from './views/Season/Season';
+import Show from './views/Show';
 import Trending from './views/Trending/Trending';
 
 const Routes = () => {
     return(
         <Switch>
             <Route exact path = '/' component={Trending} />
-            <Route path='/tv/:show-:showId/' component={DetailPage} />
+            <Route exact path='/tv/:show-season_:seasonNum-:showId/' component={Season} />
+            <Route exact path='/tv/:show-:showId/' component={Show} />
         </Switch>
     )
 }
